@@ -22,9 +22,9 @@ import           Text.XML.Lens
 
 -- | Search yielded no results
 badSearch :: Document -> Bool
-badSearch doc = isJust (dre none) || any (== "Note:") (dre suggestion)
+badSearch doc = not (null (dre none)) || any (== "Note:") (dre suggestion)
   where
-    dre = (doc ^?) . (.) (root . entire)
+    dre = (doc ^..) . (.) (root . entire)
     suggestion = hasClass "searchDescription" . entire . el "strong" . text
     none = attributeIs "style" "color:red;"
 
