@@ -18,7 +18,7 @@ import qualified Data.Text.Lazy as L
 import           Text.XML
 import           Text.XML.Lens
 
--- TODO refactor
+-- TODO: refactor
 
 -- | Search yielded no results
 badSearch :: Document -> Bool

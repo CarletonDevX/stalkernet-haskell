@@ -33,6 +33,7 @@ Usage: stalk fetch (binary|json|pretty)
 Be careful with `<threads>`.
 Too many will either make Mike Tie angry or cause a response timeout
 (which, at this point, crashes the program).
+I would recommend no more than 20.
 
 ## Building
 
