@@ -4,13 +4,13 @@
 !TODO.md
 !LICENSE
 
-!default.nix
-!update-nix
-
 !stalkernet.cabal
 !Setup.hs
-
 !src/
 !exe/
+
+!default.nix
+!update-nix
+!third-party/
 
 !.gitignore

@@ -1,0 +1,14 @@
+--- orig/CMakeLists.txt	2016-03-02 15:59:44.170530456 -0600
++++ new/CMakeLists.txt	2016-03-02 16:00:12.222284772 -0600
+@@ -140,11 +140,6 @@
+ INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/libface.pc DESTINATION ${LIBDIR}/pkgconfig )
+ INSTALL(FILES ${PROJECT_BINARY_DIR}/LibFaceConfig.h DESTINATION include/${PROJECT_NAME})
+ 
+-# Install find cmake script to the system for client applications.
+-
+-INSTALL(FILES ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules/FindLibFace.cmake
+-        DESTINATION ${CMAKE_ROOT}/Modules)
+-
+ #---------------------------------------------------------------------------------------------
+ 
+ MESSAGE(STATUS "")
