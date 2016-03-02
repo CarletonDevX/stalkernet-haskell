@@ -3,7 +3,7 @@ stalkernet-haskell
 
 A Haskell package for messing with the [Carleton directory](https://apps.carleton.edu/campus/directory/).
 
-## Library (`./src`)
+## Library (`src/`)
 
 *   `Stalkernet.Types`: Types for people/staff/faculty, with...
     *   Binary serialization/deserialization
@@ -12,7 +12,7 @@ A Haskell package for messing with the [Carleton directory](https://apps.carleto
 *   `Stalkernet.Parsing`: Functions for extracting structured data from HTML
 *   `Stalkernet.Fetching`: Functions for fetching data from the directory in multiple threads
 
-## Executable (`./exe`)
+## Executable (`exe/`)
 
 Builds a binary called `stalk`.
 For the time being, it is just a command-line interface to some of the library's features.
@@ -34,12 +34,12 @@ Run: `cabal install` in the root directory.
 
 You need `ghc` and `cabal-install`.
 The best way to obtain these tools are by installing the [Haskell platform](https://www.haskell.org/platform/).
-`directory-util.cabal` describes the build (flags, dependencies, etc.).
+`stalkernet.cabal` describes the build (flags, dependencies, etc.).
 If you run into dependency issues (sometimes called 'cabal hell'), consider using [Nix](https://nixos.org/nix).
 
 ## Contributing
 
-Yes! Please do
+Yes! Please do.
 
 ## Extra Notes
 
