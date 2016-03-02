@@ -1,0 +1,11 @@
+# *
+!README.md
+!TODO.md
+!LICENSE
+!stalkernet.cabal
+!default.nix
+!exe/
+!src/
+!Setup.hs
+!update-nix
+!.gitignore
