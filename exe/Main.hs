@@ -8,20 +8,23 @@ import           Data.Either.Extra
 import           Control.Applicative
 import           Control.Concurrent.Async
 import           Control.Concurrent.STM
+import           Control.Exception
 import           Data.Aeson
 import           Data.Aeson.Encode
 import           Data.ByteString.Builder
 import qualified Data.ByteString.Lazy as L
+import           Data.List
 import           Data.Serialize
 import           Text.PrettyPrint.ANSI.Leijen (putDoc, pretty)
 import           System.Environment
+import           System.Exit
 import           System.IO
 
 main :: IO ()
-main = do
+main = handle handler $ do
     args <- getArgs
     case args of
-        ["fetch", iw] -> maybeDo (writer iw) $ \w -> do
+        ["fetch", ithreads, iw] -> maybeDo (liftA2 (,) (maybeRead ithreads) (writer iw)) $ \(threads, w) -> do
             -- TChan for counting pages, TVar for storing people
             (ticks, ppl) <-  atomically $ (,) <$> newTChan <*> newTVar ([] :: [Person])
             let -- Loop to update progress message in stderr
@@ -30,7 +33,7 @@ main = do
                     atomically $ readTChan ticks
                     prog (n + 1)
                 -- Actual fetching
-                fetch = fetchPeople 10 $ \ps' -> atomically $ do
+                fetch = fetchPeople threads $ \ps' -> atomically $ do
                     writeTChan ticks ()
                     ps <- readTVar ppl
                     writeTVar ppl (ps' ++ ps)
@@ -45,16 +48,24 @@ main = do
         _ -> oops
   where
     maybeDo = flip (maybe oops)
+    maybeRead = fmap (fst . fst) . uncons . reads
     renderProgress n = hPutStr stderr $ "\r\ESC[K" ++ show n ++ "/676 pages scraped"
     oops = hPutStr stderr (unlines usage)
-    usage = [ "Usage: stalk fetch (binary|json|pretty)"
+    usage = [ "Usage: stalk fetch <threads> (binary|json|pretty)"
             , "       - fetch all data from stalkernet and"
-            , "         write it to stdout in the given format"
+            , "         write it to stdout in the given format,"
+            , "         with a maximum of <threads> outstanding"
+            , "         requests at once."
             , ""
             , "       stalk dump (binary|json) (binary|json|pretty)"
             , "       - read stalkernet date from stdin in the first"
-            , "         format, and write it to stdout in the second"
+            , "         format, and write it to stdout in the second."
             ]
+
+handler :: SomeException -> IO ()
+handler e = do
+    hPutStrLn stderr $ "\nstalk crashed: " ++ displayException e
+    exitFailure
 
 -- | Parse a person parser from command line argument
 reader :: String -> Maybe (L.ByteString -> Maybe [Person])

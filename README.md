@@ -21,12 +21,18 @@ It may someday evolve into a full-featured search tool (possibly as a web servic
 ```
 Usage: stalk fetch (binary|json|pretty)
        - fetch all data from stalkernet and
-         write it to stdout in the given format
+         write it to stdout in the given format,
+         with a maximum of <threads> outstanding
+         requests at once.
 
        stalk dump (binary|json) (binary|json|pretty)
        - read stalkernet date from stdin in the first
-         format, and write it to stdout in the second
+         format, and write it to stdout in the second.
 ```
+
+Be careful with `<threads>`.
+Too many will either make Mike Tie angry or cause a response timeout
+(which, at this point, crashes the program).
 
 ## Building
 
