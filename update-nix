@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# Wow I'm lazy
+
+cabal2nix --shell . > default.nix
