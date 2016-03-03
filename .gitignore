@@ -9,6 +9,8 @@
 !src/
 !exe/
 
+!cpp/
+
 !default.nix
 !update-nix
 !third-party/
